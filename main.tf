@@ -1,0 +1,73 @@
+data "azurerm_resource_group" "this" {
+  name = var.resource_group_name
+}
+
+module "storage_account" {
+  source   = "Azure/avm-res-storage-storageaccount/azurerm"
+  version  = "0.10.0"
+  for_each = var.storage_accounts
+
+  name                                      = each.value.name
+  location                                  = var.location
+  parent_id                                 = data.azurerm_resource_group.this.id
+  tags                                      = coalesce(each.value.tags, var.tags)
+  enable_telemetry                          = coalesce(each.value.enable_telemetry, var.enable_telemetry)
+  queue_encryption_key_type                 = each.value.queue_encryption_key_type
+  account_sku_name                          = each.value.account_sku_name
+  sftp_enabled                              = each.value.sftp_enabled
+  table_properties                          = each.value.table_properties
+  diagnostic_settings_table                 = each.value.diagnostic_settings_table
+  queues                                    = each.value.queues
+  static_website                            = each.value.static_website
+  customer_managed_key                      = each.value.customer_managed_key
+  timeouts                                  = each.value.timeouts
+  queue_properties                          = each.value.queue_properties
+  account_kind                              = each.value.account_kind
+  custom_domain                             = each.value.custom_domain
+  edge_zone                                 = each.value.edge_zone
+  infrastructure_encryption_enabled         = each.value.infrastructure_encryption_enabled
+  managed_identities                        = each.value.managed_identities
+  blob_properties                           = each.value.blob_properties
+  file_service_properties                   = each.value.file_service_properties
+  account_replication_type                  = each.value.account_replication_type
+  public_network_access_enabled             = each.value.public_network_access_enabled
+  is_hns_enabled                            = each.value.is_hns_enabled
+  min_tls_version                           = each.value.min_tls_version
+  shared_access_key_enabled                 = each.value.shared_access_key_enabled
+  table_service_cors_propagation_wait       = each.value.table_service_cors_propagation_wait
+  lock                                      = each.value.lock
+  role_assignments                          = each.value.role_assignments
+  shares                                    = each.value.shares
+  allowed_copy_scope                        = each.value.allowed_copy_scope
+  containers                                = each.value.containers
+  storage_management_policy_timeouts        = each.value.storage_management_policy_timeouts
+  allow_nested_items_to_be_public           = each.value.allow_nested_items_to_be_public
+  routing                                   = each.value.routing
+  private_endpoints                         = each.value.private_endpoints
+  diagnostic_settings_file                  = each.value.diagnostic_settings_file
+  sas_policy                                = each.value.sas_policy
+  resource_types                            = each.value.resource_types
+  cross_tenant_replication_enabled          = each.value.cross_tenant_replication_enabled
+  default_to_oauth_authentication           = each.value.default_to_oauth_authentication
+  nfsv3_enabled                             = each.value.nfsv3_enabled
+  private_endpoints_manage_dns_zone_group   = each.value.private_endpoints_manage_dns_zone_group
+  storage_management_policy_rule            = each.value.storage_management_policy_rule
+  diagnostic_settings_storage_account       = each.value.diagnostic_settings_storage_account
+  access_tier                               = each.value.access_tier
+  retry                                     = each.value.retry
+  account_tier                              = each.value.account_tier
+  azure_files_authentication                = each.value.azure_files_authentication
+  local_user                                = each.value.local_user
+  local_user_enabled                        = each.value.local_user_enabled
+  immutability_policy                       = each.value.immutability_policy
+  diagnostic_settings_queue                 = each.value.diagnostic_settings_queue
+  https_traffic_only_enabled                = each.value.https_traffic_only_enabled
+  network_rules                             = each.value.network_rules
+  provisioned_billing_model_version         = each.value.provisioned_billing_model_version
+  diagnostic_settings_blob                  = each.value.diagnostic_settings_blob
+  tables                                    = each.value.tables
+  storage_data_lake_gen2_filesystems        = each.value.storage_data_lake_gen2_filesystems
+  large_file_share_enabled                  = each.value.large_file_share_enabled
+  table_encryption_key_type                 = each.value.table_encryption_key_type
+  role_assignment_definition_lookup_enabled = each.value.role_assignment_definition_lookup_enabled
+}
